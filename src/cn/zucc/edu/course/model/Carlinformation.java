@@ -2,12 +2,12 @@ package cn.zucc.edu.course.model;
 //车系信息
 //car 车 l系列 information信息
 public class Carlinformation {
-	int carlineid;//
-	int brandid;
-	String carlinename;
-	String brand;
-	String carlineintro;
-	boolean carlinedel;
+	int carlineid;//车系编号
+	int brandid;//品牌编号
+	String carlinename;//车系名称
+	String brand;//所属品牌
+	String carlineintro;//车系介绍
+	boolean carlinedel;//是否删除
 	public int getCarlineid() {
 		return carlineid;
 	}

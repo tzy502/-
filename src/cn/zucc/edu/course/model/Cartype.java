@@ -5,6 +5,7 @@ public class Cartype {
 	String cartypename;//类型名字
 	String cartypeintroduce;//类型介绍
 	String cartypeuse;//类型用途
+	boolean cartypedel;//车类删除
 	public int getCartypeid() {
 		return cartypeid;
 	}
@@ -28,6 +29,12 @@ public class Cartype {
 	}
 	public void setCartypeuse(String cartypeuse) {
 		this.cartypeuse = cartypeuse;
+	}
+	public boolean isCartypedel() {
+		return cartypedel;
+	}
+	public void setCartypedel(boolean cartypedel) {
+		this.cartypedel = cartypedel;
 	}
 	
 }
