@@ -1,7 +1,7 @@
 package cn.zucc.edu.course.model;
 //用户
 public class User {
-	int userid;//用户id
+	String userid;//用户id
 	String username;//用户名字	
 	String password;//密码
 	String TEL;//电话
@@ -11,10 +11,10 @@ public class User {
 	int usersex;//用户性别
 	int userage;//用户年龄
 	boolean userdel;//是否删除
-	public int getUserid() {
+	public String getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 	public String getUsername() {
