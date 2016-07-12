@@ -23,27 +23,28 @@ public class CarbaseDAO implements ICarbaseDAO {
 		try {
 			conn=DBUtil.getConnection();
 			String sql="INSERT INTO [Course].[dbo].[carbase]"
-					+ "([[carlineid],[transmissiontype],[cartype],[displacement],"
+					+ "([userid],[cartypeid],[carlineid],[transmissiontype],[cartype],[displacement],"
 					+ "[carage],[productionyear],[cardtime],[travelmileage],[carcolor],"
 					+ "[suggestedprice],[realprice],[carstate],[cardel])"
-					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "VALUES(?,?,?,?,?,?,?, ?,?,?,?, ?,?,?,?)";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			pst.setInt(1, car.getCartypeid());
-			pst.setInt(2,car.getCarlineid());
-			pst.setString(3, car.getTransmissiontype());
-			pst.setString(4, car.getCartype());
-			pst.setInt(5, car.getDisplacement());
-			pst.setInt(6, car.getCarage());
-			java.sql.Date Productionyear=new java.sql.Date(car.getProductionyear().getDate());
-			pst.setDate(7,Productionyear);
-			java.sql.Date cardtime=new java.sql.Date(car.getCardtime().getDate());		
-			pst.setDate(8,cardtime);
-			pst.setInt(9, car.getTravelmileage());
-			pst.setString(10, car.getCarcolor());
-			pst.setInt(11,car.getSuggestedprice());
-			pst.setInt(12, car.getRealprice());
-			pst.setString(13, car.getCarstate());
-			pst.setInt(14, 0);
+			pst.setString(1, car.getUserid());
+			pst.setInt(2, car.getCartypeid());
+			pst.setInt(3,car.getCarlineid());
+			pst.setString(4, car.getTransmissiontype());
+			pst.setString(5, car.getCartype());
+			pst.setInt(6, car.getDisplacement());
+			pst.setInt(7, car.getCarage());
+			java.sql.Date Productionyear=new java.sql.Date(car.getProductionyear().getTime());
+			pst.setDate(8,Productionyear);
+			java.sql.Date cardtime=new java.sql.Date(car.getCardtime().getTime());		
+			pst.setDate(9,cardtime);
+			pst.setInt(10, car.getTravelmileage());
+			pst.setString(11, car.getCarcolor());
+			pst.setInt(12,car.getSuggestedprice());
+			pst.setInt(13, car.getRealprice());
+			pst.setString(14, car.getCarstate());
+			pst.setInt(15, 0);
 			pst.execute();
 			pst.close();
 		} catch (SQLException e) {
@@ -67,7 +68,7 @@ public class CarbaseDAO implements ICarbaseDAO {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="SELECT [carid],[cartypeid],[carlineid],[transmissiontype],[cartype] "
+			String sql="SELECT [userid],[carid],[cartypeid],[carlineid],[transmissiontype],[cartype] "
 					+ ",[displacement],[carage],[productionyear],[cardtime],[travelmileage],"
 					+ "[carcolor],[suggestedprice],[realprice],[carstate],[cardel]"
 					+ "  FROM [Course].[dbo].[carbase]"
@@ -75,23 +76,22 @@ public class CarbaseDAO implements ICarbaseDAO {
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			pst.setInt(1, id);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;
-			car.setCarid(rs.getInt(1));
-			car.setCartypeid(rs.getInt(2));
-			car.setCarlineid(rs.getInt(3));
-			car.setTransmissiontype(rs.getString(4));
-			car.setCartype(rs.getString(5));
-			car.setDisplacement(rs.getInt(6));
-			car.setCarage(rs.getInt(7));
-			car.setProductionyear(rs.getDate(8));
-			car.setCardtime(rs.getDate(9));
-			car.setTravelmileage(rs.getInt(10));
-			car.setCarcolor(rs.getString(11));
-			car.setSuggestedprice(rs.getInt(12));
-			car.setRealprice(rs.getInt(13));
-			car.setCarstate(rs.getString(14));
-			int del=rs.getInt(15);
+			car.setUserid(rs.getString(1));
+			car.setCarid(rs.getInt(2));
+			car.setCartypeid(rs.getInt(3));
+			car.setCarlineid(rs.getInt(4));
+			car.setTransmissiontype(rs.getString(5));
+			car.setCartype(rs.getString(7));
+			car.setDisplacement(rs.getInt(7));
+			car.setCarage(rs.getInt(8));
+			car.setProductionyear(rs.getDate(9));
+			car.setCardtime(rs.getDate(10));
+			car.setTravelmileage(rs.getInt(11));
+			car.setCarcolor(rs.getString(12));
+			car.setSuggestedprice(rs.getInt(13));
+			car.setRealprice(rs.getInt(14));
+			car.setCarstate(rs.getString(15));
+			int del=rs.getInt(16);
 			if (del==0){
 				car.setCardel(false);
 			}
@@ -124,33 +124,34 @@ public class CarbaseDAO implements ICarbaseDAO {
 		try {
 			conn=DBUtil.getConnection();
 			String sql="UPDATE [Course].[dbo].[carbase]"
-					+ "   SET [cartypeid] = ?,[carlineid] = ?,[transmissiontype] = ?,"
+					+ "   SET [userid] =?,[cartypeid] = ?,[carlineid] = ?,[transmissiontype] = ?,"
 					+ "[cartype] = ?,[displacement] = ?,[carage] = ?,[productionyear] = ?"
 					+ ",[cardtime] = ?,[carstate] = ?,[cardel] = ?"
 					+ " WHERE [carid] = ?";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			pst.setInt(1, car.getCartypeid());
-			pst.setInt(2,car.getCarlineid());
-			pst.setString(3, car.getTransmissiontype());
-			pst.setString(4, car.getCartype());
-			pst.setInt(5, car.getDisplacement());
-			pst.setInt(6, car.getCarage());
-			java.sql.Date Productionyear=new java.sql.Date(car.getProductionyear().getDate());
-			pst.setDate(7,Productionyear);
-			java.sql.Date cardtime=new java.sql.Date(car.getCardtime().getDate());		
-			pst.setDate(8,cardtime);
-			pst.setInt(9, car.getTravelmileage());
-			pst.setString(10, car.getCarcolor());
-			pst.setInt(11,car.getSuggestedprice());
-			pst.setInt(12, car.getRealprice());
-			pst.setString(13, car.getCarstate());
+			pst.setString(1, car.getUserid());
+			pst.setInt(2, car.getCartypeid());
+			pst.setInt(3,car.getCarlineid());
+			pst.setString(4, car.getTransmissiontype());
+			pst.setString(5, car.getCartype());
+			pst.setInt(6, car.getDisplacement());
+			pst.setInt(7, car.getCarage());
+			java.sql.Date Productionyear=new java.sql.Date(car.getProductionyear().getTime());
+			pst.setDate(8,Productionyear);
+			java.sql.Date cardtime=new java.sql.Date(car.getCardtime().getTime());		
+			pst.setDate(9,cardtime);
+			pst.setInt(10, car.getTravelmileage());
+			pst.setString(11, car.getCarcolor());
+			pst.setInt(12,car.getSuggestedprice());
+			pst.setInt(13, car.getRealprice());
+			pst.setString(14, car.getCarstate());
 			if(car.isCardel()==true){
-				pst.setInt(14, 1);
+				pst.setInt(15, 1);
 			}
 			else{
-				pst.setInt(14, 0);
+				pst.setInt(15, 0);
 			}
-			pst.setInt(15, car.getCarid());
+			pst.setInt(16, car.getCarid());
 
 			pst.execute();
 			pst.close();
@@ -236,7 +237,7 @@ public class CarbaseDAO implements ICarbaseDAO {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="SELECT [carid],[cartypeid],[carlineid],[transmissiontype],[cartype] "
+			String sql="SELECT [userid],[carid],[cartypeid],[carlineid],[transmissiontype],[cartype] "
 					+ ",[displacement],[carage],[productionyear],[cardtime],[travelmileage],"
 					+ "[carcolor],[suggestedprice],[realprice],[carstate],[cardel]"
 					+ "  FROM [Course].[dbo].[carbase]";
@@ -246,21 +247,22 @@ public class CarbaseDAO implements ICarbaseDAO {
 				return null;
 			while(rs.next()){
 				Carbase car=new Carbase();
-				car.setCarid(rs.getInt(1));
-				car.setCartypeid(rs.getInt(2));
-				car.setCarlineid(rs.getInt(3));
-				car.setTransmissiontype(rs.getString(4));
-				car.setCartype(rs.getString(5));
-				car.setDisplacement(rs.getInt(6));
-				car.setCarage(rs.getInt(7));
-				car.setProductionyear(rs.getDate(8));
-				car.setCardtime(rs.getDate(9));
-				car.setTravelmileage(rs.getInt(10));
-				car.setCarcolor(rs.getString(11));
-				car.setSuggestedprice(rs.getInt(12));
-				car.setRealprice(rs.getInt(13));
-				car.setCarstate(rs.getString(14));
-				int del=rs.getInt(15);
+				car.setUserid(rs.getString(1));
+				car.setCarid(rs.getInt(2));
+				car.setCartypeid(rs.getInt(3));
+				car.setCarlineid(rs.getInt(4));
+				car.setTransmissiontype(rs.getString(5));
+				car.setCartype(rs.getString(7));
+				car.setDisplacement(rs.getInt(7));
+				car.setCarage(rs.getInt(8));
+				car.setProductionyear(rs.getDate(9));
+				car.setCardtime(rs.getDate(10));
+				car.setTravelmileage(rs.getInt(11));
+				car.setCarcolor(rs.getString(12));
+				car.setSuggestedprice(rs.getInt(13));
+				car.setRealprice(rs.getInt(14));
+				car.setCarstate(rs.getString(15));
+				int del=rs.getInt(16);
 				if (del==0){
 					car.setCardel(false);
 				}

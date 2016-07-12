@@ -80,6 +80,9 @@ public class Login {
 				try {
 					if(um.loginuser(userid, password)==true){
 						frame.setVisible(false);
+						MainUi ui=new MainUi();
+						String[] args = null;
+						MainUi.main(args);
 					}
 				} catch (BaseException e1) {
 					// TODO Auto-generated catch block

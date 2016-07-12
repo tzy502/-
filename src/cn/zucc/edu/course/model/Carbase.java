@@ -5,6 +5,7 @@ import java.util.Date;
 //车基本信息
 public class Carbase {
 	int carid;//车编号
+	String userid;
 	int cartypeid;//车型编号
 	int carlineid;//车系编号
 	String transmissiontype;//变速箱信息
@@ -108,5 +109,11 @@ public class Carbase {
 	}
 	public void setCardel(boolean cardel) {
 		this.cardel = cardel;
+	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 }

@@ -145,8 +145,6 @@ public class CarTypeDAO implements ICartypeDAO {
 					+ "  FROM [Course].[dbo].[cartype]";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;
 			while(rs.next()){
 				Cartype cartype=new Cartype();
 				cartype.setCartypeid(rs.getInt(1));

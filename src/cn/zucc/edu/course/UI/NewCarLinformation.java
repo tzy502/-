@@ -34,7 +34,7 @@ public class NewCarLinformation {
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		frame.setLocation((int) (width - frame.getWidth()) / 2,
 				(int) (height - frame.getHeight()) / 2);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.SOUTH);
@@ -93,6 +93,9 @@ public class NewCarLinformation {
 		carlineArea.setBounds(30, 105, 308, 83);
 		panel_1.add(carlineArea);
 		carlineArea.setBorder(new LineBorder(new java.awt.Color(127,157,185), 1, false));
+		frame.setResizable(false);
+		frame.setVisible(true);
+		frame.setAlwaysOnTop(true);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Carbrand cb=new Carbrand();

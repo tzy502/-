@@ -21,14 +21,14 @@ public class NewCarBrand {
 	private JTextField nameField;
 	private JTextField country;
 	CarBrandManage cbm=new CarBrandManage();
-	private void NewCarBrand() {
+	public NewCarBrand() {
 		frame = new JFrame("ÐÂ½¨Æ·ÅÆ");
 		frame.setBounds(100, 100, 280, 230);
 		double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		frame.setLocation((int) (width - frame.getWidth()) / 2,
 				(int) (height - frame.getHeight()) / 2);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.SOUTH);
@@ -72,6 +72,9 @@ public class NewCarBrand {
 		introduct.setBounds(21, 92, 219, 57);
 		panel_1.add(introduct);
 		introduct.setBorder(new LineBorder(new java.awt.Color(127,157,185), 1, false));
+		frame.setResizable(false);
+		frame.setVisible(true);
+		frame.setAlwaysOnTop(true);
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			String name=nameField.getText();

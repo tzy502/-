@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zucc.edu.course.DAO.CarinformationDAO;
+import cn.zucc.edu.course.model.Carbrand;
 import cn.zucc.edu.course.model.Carlinformation;
 import cn.zucc.edu.course.util.BusinessException;
 import cn.zucc.edu.course.util.DbException;
@@ -24,5 +25,15 @@ public class CarLineManager {
 		List<Carlinformation> total=new ArrayList<Carlinformation>();
 		total=CLD.LoadCar();
 		return total;
+	}
+	public List<Carlinformation> SearchCarlinebycarband(int id) throws DbException {
+		Carlinformation cl=new Carlinformation();
+		cl.setBrandid(id);
+		List<Carlinformation> total=new ArrayList<Carlinformation>();
+		total=CLD.QryCar(cl);
+		
+		return total;
+
+		
 	}
 }
