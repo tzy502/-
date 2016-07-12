@@ -101,8 +101,9 @@ public class CarbrandDAO implements ICarbrandDAO {
 					+ "FROM [Course].[dbo].[carbrand]"
 					+ "where [brandid]=?";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			java.sql.ResultSet rs=pst.executeQuery();
 			pst.setInt(1, id);
+			java.sql.ResultSet rs=pst.executeQuery();
+
 			if(!rs.next()) 
 				return null;
 			carbrand.setBrandid(id);
@@ -147,8 +148,8 @@ public class CarbrandDAO implements ICarbrandDAO {
 					+ "  FROM [Course].[dbo].[carbrand]";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;
+//			if(!rs.next()) 
+//				return null;
 			while (rs.next()){
 				Carbrand carbrand=new Carbrand();
 				carbrand.setBrandid(rs.getInt(1));
@@ -161,10 +162,11 @@ public class CarbrandDAO implements ICarbrandDAO {
 				else
 					carbrand.setBranddel(true);
 				totalcabrandr.add(carbrand);
-			}		
+			}					
 			rs.close();
 			pst.execute();
 			pst.close();
+			return totalcabrandr;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DbException(e);
@@ -180,13 +182,53 @@ public class CarbrandDAO implements ICarbrandDAO {
 				}
 
 		}
-		return null;
 	}
 
 	@Override
-	public List<Carbrand> QryCarbrand(Carbrand carbrand) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Carbrand> QryCarbrandname(Carbrand carbrand1) throws DbException {
+		List<Carbrand> totalcabrandr=new ArrayList<Carbrand>();
+		Connection conn=null;
+		try {
+			conn=DBUtil.getConnection();
+			String sql="SELECT [brandname],[brandcountry],[brandintroduction],[branddel]"
+					+ "  FROM [Course].[dbo].[carbrand]"
+					+ "where [brandname] like ?";
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			pst.setString(1, carbrand1.getBrandname());
+			java.sql.ResultSet rs=pst.executeQuery();
+			if(!rs.next()) 
+				return null;
+			while (rs.next()){
+				Carbrand carbrand=new Carbrand();
+				carbrand.setBrandname(rs.getString(2));
+				carbrand.setBrandcountry(rs.getString(3));
+				carbrand.setBrandintroduction(rs.getString(4));
+				int del=rs.getInt(5);
+				if(del==0)
+					carbrand.setBranddel(false);
+				else
+					carbrand.setBranddel(true);
+				totalcabrandr.add(carbrand);
+			}					
+			rs.close();
+			pst.execute();
+			pst.close();
+			return totalcabrandr;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e);
+		}
+		finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+
+				}
+
+		}
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public User SearchUser(int ID) throws DbException {
+	public User SearchUser(String ID) throws DbException {
 		// TODO Auto-generated method stub
 		User user =new User();
 		Connection conn=null;
@@ -64,6 +64,7 @@ public class UserDAO implements IUserDAO {
 					+ "  FROM [Course].[dbo].[user]"
 					+ "where [userid] like ?";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
+			pst.setString(1, ID);
 			java.sql.ResultSet rs=pst.executeQuery();
 			if(!rs.next()) 
 				return null;

@@ -12,7 +12,7 @@ public interface ICarbrandDAO {
 	public void ModifryCarbrand(Carbrand carbrand)throws DbException;
 	public Carbrand SearchCarbrand(int id)throws DbException;
 	public List<Carbrand> loadCarbrand()throws DbException;
-	public List<Carbrand> QryCarbrand(Carbrand carbrand)throws DbException;
+	public List<Carbrand> QryCarbrandname(Carbrand carbrand)throws DbException;
 	public void DelCarbrand (Carbrand carbrand)throws DbException;
 	
 }
