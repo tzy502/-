@@ -42,7 +42,6 @@ public class NewCar1 {
 	private JTextField colorField;
 	private JTextField suggestedpriceField_4;
 	private JTextField displacementField;
-	private JTextField productionyearField;
 	private JTextField travelmileageField;
 	private JTextField realpriceField;
 	CarLineManager clm=new CarLineManager();
@@ -252,11 +251,6 @@ public class NewCar1 {
 		displacementField.setBounds(291, 67, 95, 21);
 		frame.getContentPane().add(displacementField);
 		
-		productionyearField = new JTextField();
-		productionyearField.setColumns(10);
-		productionyearField.setBounds(291, 107, 95, 21);
-		frame.getContentPane().add(productionyearField);
-		
 		travelmileageField = new JTextField();
 		travelmileageField.setColumns(10);
 		travelmileageField.setBounds(291, 147, 95, 21);
@@ -270,6 +264,13 @@ public class NewCar1 {
 		JLabel cartypelabel = new JLabel("\u8F66\u7C7B\u578B");
 		cartypelabel.setBounds(58, 70, 54, 15);
 		frame.getContentPane().add(cartypelabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(291, 107, 95, 21);
+		for(int i=2000;i<2051;i++){
+			comboBox.addItem(i);
+		}
+		frame.getContentPane().add(comboBox);
 		
 
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -296,14 +297,14 @@ public class NewCar1 {
 				else{
 					carage=Integer.valueOf(carageField.getText());
 				}
-				String productionyearString=productionyearField.getText();
-				int productionyear;
-				if(productionyearString.equals("")){
-					productionyear=-1;
-				}
-				else{
-					productionyear=Integer.valueOf(productionyearField.getText());
-				}
+//				String productionyearString=productionyearField.getText();
+//				int productionyear;
+//				if(productionyearString.equals("")){
+//					productionyear=-1;
+//				}
+//				else{
+//					productionyear=Integer.valueOf(productionyearField.getText());
+//				}
 				Date cardtime1=(Date)cardtime.getValue();
 				String travelmileageString=travelmileageField.getText();
 				int travelmileage;
@@ -333,15 +334,15 @@ public class NewCar1 {
 					realprice=Integer.valueOf(realpriceField.getText());
 				}
 				String carstate=carstateArea.getText();
-				try {
-					carbm.createcar(cartypeid, carlineid, transmissiontype, cartype, displacement,carage, productionyear, cardtime1, travelmileage, carcolor, suggestedprice,realprice, carstate);
-				} catch (BusinessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (DbException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+//				try {
+//					carbm.createcar(cartypeid, carlineid, transmissiontype, cartype, displacement,carage, productionyear, cardtime1, travelmileage, carcolor, suggestedprice,realprice, carstate);
+//				} catch (BusinessException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				} catch (DbException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 		});
 	}

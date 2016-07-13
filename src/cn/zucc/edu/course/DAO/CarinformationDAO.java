@@ -93,27 +93,30 @@ public class CarinformationDAO implements ICarlinformationDAO {
 		Connection conn=null;
 		try {
 			conn=DBUtil.getConnection();
-			String sql="SELECT [carlineid],[brandid],[carlinename],[brand],[carlineintro],[carlinedel]"
+			String sql="SELECT [carlineid],[brandid],[carlinename] ,[brand],[carlineintro],[carlinedel]"
 					+ "  FROM [Course].[dbo].[carinformation]"
-					+ "where carlineid=?";
+					+ "where [carlineid]=?";
+					
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			pst.setInt(1, id);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;
-			carlinformation.setCarlineid(rs.getInt(1));
-			carlinformation.setBrandid(rs.getInt(2));
-			carlinformation.setCarlinename(rs.getString(3));
-			carlinformation.setBrand(rs.getString(4));
-			carlinformation.setCarlineintro(rs.getString(5));
-			int del=rs.getInt(6);
-			if(del==0)
-				carlinformation.setCarlinedel(false);
-			else
+			if(rs.next()){
+				carlinformation.setCarlineid(rs.getInt(1));		
+				carlinformation.setBrandid(rs.getInt(2));
+				carlinformation.setCarlinename(rs.getString(3));			
+				carlinformation.setBrand(rs.getString(4));
+				carlinformation.setCarlineintro(rs.getString(5));
+				int del=rs.getInt(6);
+				if(del==0)
+					carlinformation.setCarlinedel(false);
+				else
 				carlinformation.setCarlinedel(true);
+				}
+
 			rs.close();
 			pst.execute();
 			pst.close();
+			return carlinformation;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DbException(e);
@@ -129,7 +132,6 @@ public class CarinformationDAO implements ICarlinformationDAO {
 				}
 
 		}
-		return null;
 	}
 
 	@Override

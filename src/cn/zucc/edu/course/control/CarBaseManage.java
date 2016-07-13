@@ -1,6 +1,8 @@
 package cn.zucc.edu.course.control;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import cn.zucc.edu.course.DAO.CarbaseDAO;
 import cn.zucc.edu.course.model.Carbase;
@@ -9,8 +11,9 @@ import cn.zucc.edu.course.util.DbException;
 
 public class CarBaseManage {
 	CarbaseDAO cbd=new CarbaseDAO();
-	public void createcar(int cartypeid,int carlineid,String transmissiontype,String cartype,int displacement,int carage,int productionyear,Date cardtime,int travelmileage,String carcolor,int suggestedprice,int realprice,String carstate) throws BusinessException, DbException{
+	public void createcar(String userid,int cartypeid,int carlineid,String transmissiontype,String cartype,int displacement,int carage,int productionyear,Date cardtime,int travelmileage,String carcolor,int suggestedprice,int realprice,String carstate) throws BusinessException, DbException{
 		Carbase car=new Carbase();
+		car.setUserid(userid);
 		car.setCartypeid(cartypeid);
 		car.setCarlineid(carlineid);
 		if(transmissiontype==null||transmissiontype.equals("")){
@@ -56,4 +59,15 @@ public class CarBaseManage {
 		car.setCarstate(carstate);
 		cbd.CreateCar(car);
 	}
+	public List<Carbase> QryCarbyuserid(String userid) throws DbException {
+		List<Carbase> totalcar=new ArrayList<Carbase>();
+		Carbase car=new Carbase();
+		car.setUserid(userid);
+		totalcar=cbd.QryCarbyuserid(car);		
+		return totalcar;
+	}
+	public void listingCar(Carbase car) throws DbException{
+		cbd.listingCar(car);
+	}
+	
 }

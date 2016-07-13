@@ -30,10 +30,18 @@ public class CarLineManager {
 		Carlinformation cl=new Carlinformation();
 		cl.setBrandid(id);
 		List<Carlinformation> total=new ArrayList<Carlinformation>();
-		total=CLD.QryCar(cl);
-		
+		total=CLD.QryCar(cl);	
 		return total;
-
-		
 	}
+	public Carlinformation SearchCarlinebyid(int id) throws DbException {
+		Carlinformation cl=new Carlinformation();
+		cl.setCarlineid(id);
+		Carlinformation rs=new Carlinformation();
+		
+		rs=CLD.SearchCarId(id);
+	
+		
+		return rs;
+	}
+	
 }

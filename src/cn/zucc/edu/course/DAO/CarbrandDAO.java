@@ -104,8 +104,6 @@ public class CarbrandDAO implements ICarbrandDAO {
 			pst.setInt(1, id);
 			java.sql.ResultSet rs=pst.executeQuery();
 
-			if(!rs.next()) 
-				return null;
 			carbrand.setBrandid(id);
 			carbrand.setBrandname(rs.getString(2));
 			carbrand.setBrandcountry(rs.getString(3));

@@ -26,7 +26,8 @@ public class ListinginformationDAO implements IListinginformationDAO {
 			pst.setInt(1, car.getCarid());
 			pst.setString(2, car.getUserid());
 			pst.setString(3, car.getSellinformation());
-			pst.setDate(4, (java.sql.Date)car.getSelltime());
+			java.sql.Date selltime=new java.sql.Date(car.getSelltime().getTime());
+			pst.setDate(4, selltime);
 			pst.setInt(5, car.getRealprice());
 			pst.setInt(6, car.getCarage());
 			pst.setString(7, car.getTransmissiontype());
@@ -170,8 +171,6 @@ public class ListinginformationDAO implements IListinginformationDAO {
 					+ "  FROM [Course].[dbo].[Listinginformation]";
 			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
 			java.sql.ResultSet rs=pst.executeQuery();
-			if(!rs.next()) 
-				return null;
 			while (rs.next()){
 				Listinginformation listinginformation=new Listinginformation();
 				listinginformation.setCarid(rs.getInt(1));

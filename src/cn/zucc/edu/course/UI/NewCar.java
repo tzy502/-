@@ -28,6 +28,7 @@ import cn.zucc.edu.course.control.CarTypeManage;
 import cn.zucc.edu.course.model.Carbrand;
 import cn.zucc.edu.course.model.Carlinformation;
 import cn.zucc.edu.course.model.Cartype;
+import cn.zucc.edu.course.model.User;
 import cn.zucc.edu.course.util.BusinessException;
 import cn.zucc.edu.course.util.DbException;
 
@@ -54,7 +55,7 @@ public class NewCar {
 	private DatePicker cardtime;	
 	Date date=new Date();
 	
-	public NewCar() {
+	public NewCar(final User user) {
 		frame = new JFrame("ÐÂ½¨³µÁ¾");
 		frame.setBounds(100, 100, 493, 492);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -105,10 +106,9 @@ public class NewCar {
 		linecomboBox.setBounds(281, 30, 105, 21);
 		brandcomboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Carbrand cb=new Carbrand();
-				
-				int id=brandcomboBox.getSelectedIndex()+1;
-				System.out.println(id);
+				linecomboBox.removeAllItems();
+				Carbrand cb=new Carbrand();			
+				int id=brandcomboBox.getSelectedIndex()+1;			
 				try {
 					totalcarline=clm.SearchCarlinebycarband(id);
 					for(int i=0;i<totalcarline.size();i++){
@@ -133,7 +133,6 @@ public class NewCar {
 			e1.printStackTrace();
 		}
 		for(int i=0;i<totalcartype.size();i++){
-			System.out.println(i);
 			cartypecomboBox.addItem(totalcartype.get(i).getCartypename());		
 		}
 		cartypecomboBox.setBounds(107, 67, 105, 21);
@@ -225,10 +224,18 @@ public class NewCar {
 		displacementField.setBounds(291, 67, 95, 21);
 		frame.getContentPane().add(displacementField);
 		
-		productionyearField = new JTextField();
-		productionyearField.setColumns(10);
-		productionyearField.setBounds(291, 107, 95, 21);
-		frame.getContentPane().add(productionyearField);
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(291, 107, 95, 21);
+		for(int i=2000;i<2051;i++){
+			comboBox.addItem(i);
+		}
+		frame.getContentPane().add(comboBox);
+		
+//		productionyearField = new JTextField();
+//		productionyearField.setColumns(10);
+//		productionyearField.setBounds(291, 107, 95, 21);
+//		frame.getContentPane().add(productionyearField);
 		
 		travelmileageField = new JTextField();
 		travelmileageField.setColumns(10);
@@ -249,7 +256,8 @@ public class NewCar {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int cartypeid=cartypecomboBox.getSelectedIndex()+1;
-				int carlineid=linecomboBox.getSelectedIndex()+1;
+				int carlineboxid=linecomboBox.getSelectedIndex();
+				int carlineid=totalcarline.get(carlineboxid).getCarlineid();
 				String transmissiontype=transmissiontypeField.getText();
 				if(transmissiontype.equals(""))
 					transmissiontype=null;
@@ -270,14 +278,8 @@ public class NewCar {
 				else{
 					carage=Integer.valueOf(carageField.getText());
 				}
-				String productionyearString=productionyearField.getText();
-				int productionyear;
-				if(productionyearString.equals("")){
-					productionyear=-1;
-				}
-				else{
-					productionyear=Integer.valueOf(productionyearField.getText());
-				}
+				int productionyear=(int)comboBox.getSelectedItem();
+				System.out.println(productionyear);
 				Date cardtime1=(Date)cardtime.getValue();
 				String travelmileageString=travelmileageField.getText();
 				int travelmileage;
@@ -308,7 +310,8 @@ public class NewCar {
 				}
 				String carstate=carstateArea.getText();
 				try {
-					carbm.createcar(cartypeid, carlineid, transmissiontype, cartype, displacement,carage, productionyear, cardtime1, travelmileage, carcolor, suggestedprice,realprice, carstate);
+					carbm.createcar(user.getUserid(),cartypeid, carlineid, transmissiontype, cartype, displacement,carage, productionyear, cardtime1, travelmileage, carcolor, suggestedprice,realprice, carstate);
+					frame.setVisible(false);
 				} catch (BusinessException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

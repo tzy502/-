@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import cn.zucc.edu.course.control.UserManager;
+import cn.zucc.edu.course.model.User;
 import cn.zucc.edu.course.util.BaseException;
 
 public class Login {
@@ -80,9 +81,8 @@ public class Login {
 				try {
 					if(um.loginuser(userid, password)==true){
 						frame.setVisible(false);
-						MainUi ui=new MainUi();
-						String[] args = null;
-						MainUi.main(args);
+						User user=um.getUser(userid);
+						MainUi ui=new MainUi(user);
 					}
 				} catch (BaseException e1) {
 					// TODO Auto-generated catch block

@@ -114,8 +114,7 @@ public class UserDAO implements IUserDAO {
 					+ "[address] = ?,[email] = ?,[usertype] = ?,[sex] = ?,"
 					+ "[age] = ?,[userdel] = ?"
 					+ " WHERE [userid] = ?";
-			java.sql.PreparedStatement pst=conn.prepareStatement(sql);
-			
+			java.sql.PreparedStatement pst=conn.prepareStatement(sql);			
 			pst.setString(1, user.getUsername());
 			pst.setString(2, user.getPassword());
 			pst.setString(3, user.getTEL());

@@ -20,6 +20,13 @@ public class Carbase {
 	int realprice;//实际价格
 	String carstate;//车辆状态
 	boolean cardel;//是否删除
+	boolean caelisting;
+	public boolean isCaelisting() {
+		return caelisting;
+	}
+	public void setCaelisting(boolean caelisting) {
+		this.caelisting = caelisting;
+	}
 	public int getCarid() {
 		return carid;
 	}

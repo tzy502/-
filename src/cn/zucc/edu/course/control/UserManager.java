@@ -56,7 +56,15 @@ public class UserManager {
 		else{
 			return true;
 		}
-			
 	}
+	public User getUser (String userid) throws BaseException{
+		User user=new User();
+		user=userdao.SearchUser(userid);
+		return user;
+	}
+	public void ModfiryUser (User newuser) throws BaseException{
+		userdao.ModifryUser(newuser);
+		
+	}		
 	
 }

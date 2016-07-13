@@ -74,7 +74,7 @@ public class MainUi {
 		JButton btnNewButton_3 = new JButton("\u6DFB\u52A0\u8F66\u8F86");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewCar newcar=new NewCar();
+		//		NewCar newcar=new NewCar();
 			}
 		});
 		panel.add(btnNewButton_3);
